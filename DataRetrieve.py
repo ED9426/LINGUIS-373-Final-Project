@@ -1,3 +1,10 @@
+# --== DataRetrieve Header ==--
+# Author: Edward Zhao
+# Email: edward.zhao@wisc.edu
+# Description: This script retrieves all the speech from 
+# https://www.rev.com/blog/transcript-category/congressional-testimony-hearing-transcripts
+# and saves data in a csv file named "Congressional Testimony & Hearing Transcripts.csv"
+
 import requests
 import bs4
 import pandas as pd
@@ -17,10 +24,9 @@ for page_number in range(16):
         # retrieve the data from the current trascript
         data.append(html.find("div", class_="fl-callout-text").find_all("p"))
 
-# lists used to store speakers and speech
+# lists used to save speakers their speech
 speaker = []
 speech = []
-
 # save data to two lists 
 for i in range(len(data)):
     for j in range(len(data[i])):
@@ -35,9 +41,7 @@ for i in range(len(data)):
 for i in range(len(speaker)):
     speaker[i] = speaker[i].split(":")[0]
     speech[i] = speech[i][1:]
-
 # convert to dictionary
 df = pd.DataFrame({'Speaker': speaker, 'Speech': speech})
-
 # saving the dataframe
 df.to_csv('Congressional Testimony & Hearing Transcripts.csv', index = False, encoding='utf-8-sig')
