@@ -11,6 +11,7 @@ import pandas as pd
 
 # list to save transcript data
 data = []
+titles = []
 # generate the page url of transcripts
 for page_number in range(16):
     page_url = "https://www.rev.com/blog/transcript-category/congressional-testimony-hearing-transcripts"
@@ -21,12 +22,15 @@ for page_number in range(16):
     transcript_urls = html.find("div", class_="fl-post-grid").find_all("a", href=True)
     for transcript_url in transcript_urls:
         html = bs4.BeautifulSoup(requests.get(transcript_url['href']).text, "html.parser")
-        # retrieve the data from the current trascript
+        # retrieve data from the current transcript
         data.append(html.find("div", class_="fl-callout-text").find_all("p"))
+        # retrieve titles from the current transcript
+        titles.append(html.find("span", class_="fl-heading-text").text)
 
 # lists used to save speakers their speech
 speaker = []
 speech = []
+title = []
 # save data to two lists 
 for i in range(len(data)):
     for j in range(len(data[i])):
@@ -36,12 +40,13 @@ for i in range(len(data)):
                 temp.append(k)
             speaker.append(temp[0])
             speech.append(temp[-1])
+            title.append(titles[i])
 
 # process the format of data
 for i in range(len(speaker)):
     speaker[i] = speaker[i].split(":")[0]
     speech[i] = speech[i][1:]
 # convert to dictionary
-df = pd.DataFrame({'Speaker': speaker, 'Speech': speech})
+df = pd.DataFrame({'Title': title, 'Speaker': speaker, 'Speech': speech})
 # saving the dataframe
 df.to_csv('Congressional Testimony & Hearing Transcripts.csv', index = False, encoding='utf-8-sig')
