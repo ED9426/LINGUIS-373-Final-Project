@@ -13,7 +13,7 @@ import pandas as pd
 data = []
 titles = []
 # generate the page url of transcripts
-for page_number in range(16):
+for page_number in range(17):
     page_url = "https://www.rev.com/blog/transcript-category/congressional-testimony-hearing-transcripts"
     if (page_number != 0):
         page_url += "/page/" + str(page_number+1)
