@@ -185,7 +185,6 @@ The exclamatory sentence is not a popular sentence type on congressional testimo
 sentiment <- word %>% 
   inner_join(get_sentiments("bing"), by = "word") %>% 
   inner_join(get_sentiments("afinn"), by = "word")
-
 # sentiment ratio
 sentiment %>% 
   count(sentiment, sentiment) %>% 
@@ -397,13 +396,12 @@ temp %>%
 Concession acknowledges that there are many different views to a story. It also shows that all points, positive as well as negative, have been considered before an argument is put forward. Presenting the other side and then arguing against it with valid points can make it very strong. The concession technique is also known used as a method of persuasion and reasoning [@concession_2013]. By comparing the length of conceded sentences used on congressional testimony and hearings by different identities, we can infer which identities are more adept at or require persuasion or reasoning in such contexts. The highest percentage of concessions is given to Congresspeople, while the lowest is given to entrepreneurs and scholars This shows that entrepreneurs and academics do not have many functions of persuasion or reasoning in congressional testimony and hearings. Conversely, Reprentatives, Presidents, and Congresspeople performed more persuasion or reasoning in this context.
 
 ## 3.3 Sentiment Analysis by Identity ##
-```{r addSentiment}
+```{r sentimentRatioByIdentity}
+# add sentiment
 sentiment <- word %>% 
   inner_join(get_sentiments("bing"), by = "word") %>% 
   inner_join(get_sentiments("afinn"), by = "word")
-```
 
-```{r sentimentRatioByIdentity}
 p <- list()
 i = 1
 for (t in identities) {
@@ -464,7 +462,7 @@ sentiment %>%
        subtitle = "in the form of median")
 ```
 
-The median Sentiment value reflects a similar message to the mean - only entrepreneurs and scholars are positive, while all other identities are negative. By median, congresspeople, presidents, and representatives are tied for the most negative. Entrepreneurs and academics are tied for the most positive.
+The median sentiment value reflects a similar message to the mean - only entrepreneurs and scholars are positive, while all other identities are negative. By median, congresspeople, presidents, and representatives are tied for the most negative. Entrepreneurs and academics are tied for the most positive.
 
 # 4.0 Conclusion #
 In general, congressional testimony and hearings are mainly about American and international political topics and current affairs. In politics, nothing has been more popular in the past few months than the presidential election. In terms of current affairs, the most discussed topic is the epidemic. Therefore, the most frequent words in recent congressional testimony and hearings are related to these topics. The average length of words appearing in this context is 6.959, which is much higher than the average length of English words, which is 4.79 [@norvig_2013]. With the exception of the president, who uses relatively short words, although still above the average length of English words, the median length of words used by people of other identities is very similar, at about 7.
