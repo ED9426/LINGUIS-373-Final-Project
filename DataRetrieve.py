@@ -1,7 +1,7 @@
 # --== DataRetrieve Header ==--
 # Author: Edward Zhao
 # Email: edward.zhao@wisc.edu
-# Description: This script retrieves all the speech from 
+# Description: This script retrieves the speech on
 # https://www.rev.com/blog/transcript-category/congressional-testimony-hearing-transcripts
 # and saves data in a csv file named "Congressional Testimony & Hearing Transcripts.csv"
 
@@ -47,6 +47,6 @@ for i in range(len(speaker)):
     speaker[i] = speaker[i].split(":")[0]
     speech[i] = speech[i][1:]
 # convert to dictionary
-df = pd.DataFrame({'Title': title, 'Speaker': speaker, 'Speech': speech})
+df = pd.DataFrame({'title': title, 'speaker': speaker, 'speech': speech})
 # saving the dataframe
 df.to_csv('Congressional Testimony & Hearing Transcripts.csv', index = False, encoding='utf-8-sig')
